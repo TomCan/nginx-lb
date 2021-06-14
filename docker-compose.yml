@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  loadbalancer:
+    image: nginx
+    ports:
+      - "8080:80"
+    networks:
+      - nginx-test
+    volumes:
+      - ./lb-config:/etc/nginx/templates
+
+  web1:
+    image: nginx
+    networks:
+      - nginx-test
+    volumes:
+      - ./web-config:/etc/nginx/templates
+      - ./htdocs1:/var/www/htdocs
+  web2:
+    image: nginx
+    networks:
+      - nginx-test
+    volumes:
+      - ./web-config:/etc/nginx/templates
+      - ./htdocs2:/var/www/htdocs
+
+networks:
+  nginx-test: {}
+
